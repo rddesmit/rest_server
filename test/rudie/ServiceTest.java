@@ -7,6 +7,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,10 +24,12 @@ public class ServiceTest {
      */
     @Test
     public void getItemsTest() throws IOException {
+        Date datetime = new Date();
+
         Client client = ClientBuilder.newClient();
-        String response = client.target("http://localhost:8080/rest/service/items").request().get(String.class);
+        String response = client.target("http://localhost:8080/rest/service/" + datetime.toString()).request().get(String.class);
         ObjectMapper objectMapper = new ObjectMapper();
         List<HashMap<String, String>> items = objectMapper.readValue(response, List.class);
-        assertEquals("Item1", items.get(0).get("id"));
+        assertEquals(datetime.toString(), items.get(0).get("id"));
     }
 }

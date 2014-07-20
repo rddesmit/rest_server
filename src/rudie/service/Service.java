@@ -4,9 +4,11 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.StreamingOutput;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,12 +19,12 @@ import java.util.List;
 public class Service {
 
     @GET
-    @Path("/items")
+    @Path("{datetime}")
     @Produces("application/json")
-    public StreamingOutput getItems(){
+    public StreamingOutput getItems(@PathParam("datetime")String datetime){
         //item aanmaken
         HashMap<String, String> item = new HashMap<>();
-        item.put("id", "Item1");
+        item.put("id", datetime.toString());
 
         //item in items list stoppen
         List<HashMap<String, String>> items = new ArrayList<>();
